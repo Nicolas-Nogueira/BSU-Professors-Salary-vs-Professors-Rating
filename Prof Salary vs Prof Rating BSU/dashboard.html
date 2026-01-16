@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Professor Salary vs. Student Ratings Dashboard</title>
+
+    <!-- Vega Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@6.1.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.0.2"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 20px;
+      }
+
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      .chart {
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      h1, h2 {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+
+    <!-- Dashboard Title -->
+    <div class="full-width">
+      <h1>Professor Salary vs. Student Ratings</h1>
+      <p>
+        This dashboard explores the relationship between professor salaries and
+        student ratings across departments.
+      </p>
+    </div>
+
+    <div class="dashboard">
+
+        <!-- Scatter Plot -->
+        <div class="chart full-width">
+          <h2>Salary vs. Student Rating</h2>
+          <div id="scatter-salary-rating"></div>
+        </div>
+  
+        <!-- Salary by Department -->
+        <div class="chart">
+          <h2>Salary by Department</h2>
+          <div id="salary-by-department"></div>
+        </div>
+  
+        <!-- Average Rating by Department -->
+        <div class="chart">
+          <h2>Average Rating by Department</h2>
+          <div id="avg-rating-by-department"></div>
+        </div>
+  
+        <!-- Rating Distribution -->
+        <div class="chart">
+          <h2>Rating Distribution</h2>
+          <div id="rating-distribution"></div>
+        </div>
+  
+        <!-- Salary Distribution -->
+        <div class="chart">
+          <h2>Salary Distribution</h2>
+          <div id="salary-distribution"></div>
+        </div>
+  
+      </div>
+  
+
+      <!-- Insight Section -->
+      <div class="full-width chart">
+        <h2>Key Insights</h2>
+        <p>The correlation was negligible (r = -0.074), not statistically significant (p = 0.328), and rating explained only 0.55% of salary variation. The large prediction error ($26,640) demonstrates that rating cannot meaningfully predict salary.
+
+          These findings confirm that professor salaries are determined by institutional and professional factors—rank, years of experience, discipline, and administrative responsibilities—rather than student evaluations. This makes theoretical sense: university compensation structures are based on collective bargaining agreements, academic credentials, seniority systems, and market forces within disciplines, not on teaching popularity metrics.</p>
+      </div>
+  
+
+    <!-- Script Section -->
+    <script type="text/javascript">
+        
+        var scatterSalaryRatingSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+        description: 'Scatter plot of salary vs student rating',
+        data: {"url": "data/BSU_prof_salary.csv"},
+        mark: {
+          type: "line",point: true,color: "steelblue"},
+        encoding: {
+          x: {field: 'rating',type: 'quantitative',title: 'Prof Rating'},
+          y: {field: 'Base Pay', type: 'quantitative', title: 'Prof Salary'},
+          tooltip: [
+            {field: "Employees", type: "nominal"},
+            {field: "Round", type: "quantitative"},
+            {field: "Goals_Conceded", type: "quantitative"}
+          ]
+        }
+      };
+
+      var salaryByDepartmentSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+        description: 'Salary distribution by department',
+        data: {"url": "data/BSU_prof_salary.csv"},
+        mark: {type: "boxplot",extent: "min-max",},
+        encoding: {
+          x: {field: 'dept',type: 'ordinal',title: 'Department'},
+          color: {field: "dept", type: "ordinal"}, 
+          y: {field: 'Base Pay',type: 'quantitative',title: 'Prof Salary'},
+        }
+      };
+
+      var avgRatingByDepartmentSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+        description: 'Average student rating by department',
+        data: {"url": "data/BSU_prof_salary.csv"},
+        mark: {type: "bar"},
+        encoding: {
+          x: {field: 'dept',type: 'ordinal', sort: "-y",title: 'Department'},
+          y: {field: 'rating',type: 'quantitative', title: 'Prof Rating'},
+        }
+      };
+
+      var ratingDistributionSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+        description: 'Distribution of student ratings',
+        data: {"url": "data/BSU_prof_salary.csv"},
+        mark: {type: "bar"},
+        encoding: {
+          x: {bin: "true",field: 'rating',title: 'Prof Rating'},
+          y: {aggregate: "count"}
+        }
+      };
+
+      var salaryDistributionSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+        description: 'Distribution of professor salaries',
+        data: {"url": "data/BSU_prof_salary.csv"},
+        mark: {type: "bar"},
+        encoding: {
+          x: {bin: "true",field: 'Base Pay',title: 'Prof Salary'},
+          y: {aggregate: "count"}
+        }
+      };
+
+
+
+      vegaEmbed('#scatter-salary-rating', scatterSalaryRatingSpec);
+      vegaEmbed('#salary-by-department', salaryByDepartmentSpec);
+      vegaEmbed('#avg-rating-by-department', avgRatingByDepartmentSpec);
+      vegaEmbed('#rating-distribution', ratingDistributionSpec);
+      vegaEmbed('#salary-distribution', salaryDistributionSpec);
+
+    </script>
+
+  </body>
+</html>

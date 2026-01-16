@@ -1,0 +1,241 @@
+---
+title: "BSU Prof Salary vs Prof Rating"
+output: html_notebook
+---
+
+*Research Question:*
+
+Descriptive data confirm expectations that professor ratings do not meaningfully relate to base pay (salary). Because university salary structures are primarily determined by institutional factors -rank, experience, discipline-rather than student evaluations, this analysis tests whether Rate My Professors ratings show any association with salary at Bridgewater State University.
+
+*About the Data:*
+
+The dataset used in this analysis combines information from two publicly available sources: Rate My Professors (ratemyprof.com) and the Connecticut State Payroll database (cthrupayroll.mass.gov).
+
+Sources
+
+Professor Rating Data:
+Ratings were obtained from Rate My Professors, an online platform where students submit evaluations of their instructors. The site provides numerical ratings that reflect students’ perceptions of teaching quality, clarity, and overall experience. These ratings are aggregated on a scale (typically 1.0–5.0) and used here as the measure of professor rating.
+
+Salary Data:
+Base pay (salary) information was downloaded from the Massachusetts State Payroll website, which publishes payroll details for state employees. Specifically, the dataset comes from the full-time employee records for the year 2025 at Bridgewater State University (BSC). Only employees with the title “Professor” were retained for this analysis. The payroll data provides precise base pay amounts for each individual listed.
+
+Key Variables
+
+Base Pay:
+The annual salary of each professor as reported in the Massachusetts State Payroll database. This variable is quantitative and serves as the response variable in the analysis.
+
+Rating:
+The average professor rating obtained from Rate My Professors. This is a numeric score representing student evaluation and is used as the explanatory variable in the analysis.
+
+Employees / Identifiers:
+The dataset includes the name of each professor to match salary to rating. No personally sensitive data beyond names and professional information is used.
+
+Department:
+Each professor’s department (e.g., math, biology, sociology). While included in the dataset for context, department was not directly used in the primary statistical tests of rating vs salary.
+
+Data Structure and Format
+
+The dataset consists of one row per professor. Each row includes the following columns:
+
+Employees: Professor’s name
+
+Base Pay: Annual salary from state payroll
+
+dept: Department of appointment
+
+rating: Professor’s average rating from Rate My Professors
+
+All variables used in the core analysis are quantitative, which allows for the use of scatterplots, correlation analysis, and simple linear regression to examine the relationship between professor ratings and salaries.
+
+Data Integration Notes
+
+Matching rating values with salary records required manual alignment between the two sources. Professors were included only if they appeared in both the payroll dataset and Rate My Professors. Records lacking a rating or salary were excluded from the analysis. Outliers (e.g., unusually low salaries likely due to payroll reporting artifacts) were examined during graphical analysis but retained unless clearly erroneous.
+
+Load the data:
+```{r}
+BSU <- read.csv("BSU_prof_salary.csv")
+BSU
+
+```
+-------------------------------------------------------------------
+## Exploratory Data Analysis
+
+
+### Summary Statistics
+```{r}
+salary <- BSU$Base.Pay
+rating <- BSU$rating
+
+salary_length<- length(salary)
+rating_length<- length(rating)
+
+salary_length
+rating_length
+
+min_salary <- min(salary)
+max_salary <- max(salary)
+mean_salary <- mean(salary)
+sd_salary <- sd(salary)
+
+min_rating <- min(rating)
+max_rating <- max(rating)
+mean_rating <- mean(rating)
+sd_rating <- sd(rating)
+
+
+min_salary 
+max_salary 
+mean_salary 
+sd_salary 
+
+min_rating 
+max_rating 
+mean_rating 
+sd_rating 
+```
+**Interpretation**
+
+**salary_length**:175
+**rating_length**: 175
+
+**salary mean**:77096.94
+**salary sd**: 26640.78
+**salary max**: 120793.5
+**salary min**: 3444.87
+
+**rating mean**:3.694286
+**rating sd**: 0.737401
+**rating max**: 5
+**rating min**: 1.7
+
+-------------------------------------------------------------------
+
+### Initial Scatterplot
+
+```{r}
+plot(rating, salary, pch=19, col="blue")
+```
+**Interpretation**
+
+**Explanatory variable (x-axis):** Rating
+
+**Response variable (y-axis):** Salary (Base Pay)
+
+**Direction:** Slight negative trend (as rating increases, salary tends to decrease slightly)
+
+**Form:** Linear (no clear curved pattern)
+
+**Strength:** Very weak - points are widely scattered with barely any visible trend
+
+**Conclusion:** The lack of any clear pattern is consistent with the expectation that student ratings do not influence salary decisions in university compensation structures.
+
+
+-------------------------------------------------------------------
+
+## Correlation Analysis
+
+### Calculate Correlation Coefficient
+
+```{r}
+r <-cor(salary,rating)
+r
+r< 0.3
+
+r2 <- r^2
+r2
+
+```
+**Interpretation:**
+
+**r** = -0.074: r is close to 0 and is less than 0.3 suggesting a weak or no linear relationship.
+
+**r²** = 0.0055: This indicates a very weak relationship between the predictor variables and the response variable.
+
+**Conclusion**: The correlation is basically non-existent. This is what should be anticipated insofar as university salaries are structured based on rank and field rather than on student performance.
+
+---
+
+## Linear Regression Analysis
+
+### Fit Least-Squares Regression Line
+```{r}
+BSU.lm <- lm(salary ~ rating, data = BSU)
+plot(rating, salary, pch=19, col="blue")
+abline(BSU.lm, col="red")
+```
+### Model Summary
+
+**Sample size:** n = 175 professors
+**Regression equation:** ŷ = 87,024 - 2,687x
+- Intercept: $87,024 (predicted salary when rating = 0)
+- Slope: -$2,687 (for each 1-point increase in rating, salary decreases by $2,687)
+
+**Conclusion**: Although the slope is negative, this could well be the result of other variables confounding the equation. More senior professors, being paid more, could get poor performance reviews for teaching advanced courses or having a heavy class load, whereas the rating could be high for the less senior faculty, also paid less.
+---
+
+### Residual Plot
+```{r}
+residuals <- resid(BSU.lm)
+plot(rating, residuals, pch=19, col="blue")
+abline(0, 0)
+```
+**Findings:**
+
+**Pattern observed:** Random scatter around 0
+
+**Linearity appropriate?** Yes. The residual plot shows random scatter with no systematic curved pattern, fan-shaped spread, or other violations of linearity assumptions. A linear model is appropriate for these data.
+
+**However:** The extremely weak correlation (r = -0.074, r² = 0.0055) indicates that while a linear model is appropriate, it has very little predictive value. The randomness in the residual plot reflects the fact that rating explains almost none of the variability in salary.
+
+**Outliers identified:** "Potential outlier(s): Yes, at least one potential outlier detected:
+
+- **Low-end outlier:** One professor has a residual of approximately -$76,623, meaning their actual salary is about $76,623 LOWER than predicted by their rating. This is substantially larger than the typical residual range (middle 50% of residuals fall between -$1,246 and +$15,616).
+- **High-end outlier:** One professor has a residual of approximately +$45,324, indicating their salary is about $45,324 HIGHER than predicted. While large, this is less extreme than the low-end outlier.
+
+**Conclusion**These outliers reinforce that salary is driven by factors other than student ratings (employment status, rank, special appointments).
+
+
+---
+
+### Calculate Standard Deviation About the Line (sₑ) and Coefficient of Determination (r²)
+```{r}
+summary(BSU.lm)
+```
+**Interpretation:** 
+
+**sₑ = $26,640**
+
+The typical prediction error for salary is approximately $26,640. This means that when we use a professor's rating to predict their salary, our predictions are typically off by about $26,640. This represents approximately 35% of the mean salary ($77,097), indicating very poor predictive accuracy.
+
+**r² = 0.0055 (0.55%)**
+
+Only 0.55% of the variability in professor salaries is explained by their rating. This is extremely low, indicating that rating has almost no explanatory power for predicting salary. Over 99% of the variation in salaries must be due to other factors (rank, experience, department, etc.).
+
+---
+### Statistical Significance
+
+**Hypotheses:**
+- H₀: β = 0 (no linear relationship)
+- Hₐ: β ≠ 0 (linear relationship exists)
+
+**Results:**
+- t-statistic: -0.981
+- p-value: 0.328
+- α = 0.05
+
+**Decision:** Fail to reject H₀ (p-value = 0.328 > 0.05)
+
+**Conclusion:** There is no significant linear relationship for professor ratings and professor salary. There is not enough evidence to support that professor ratings are related to compensation. This is exactly what one would expect to occur in academic salary structures.
+
+---
+
+*Overall Conclusion* 
+
+This analysis empirically supports the expectation that professor ratings on “Rate My Professors” do not have any significant relationship to base salary compensation at Bridgewater State University. Correlation was very small (r = -0.074), not significant (p = 0.328), and accounted for only 0.55% variation by the variable “rating.” This large prediction error signifies that “rating” cannot significantly predict “salary.’
+
+These results substantiate the objective that the payment of professors is influenced by institutional and professional considerations such as rank, years of service, field of specialization, and administrative load and has nothing to do with performance evaluations. This is rational because the compensation package of professors is mediated by collective bargaining agreements, credentials, seniority ladders, and market principles.
+
+Implications: While student ratings can be used for other purposes (formative feedback, tenure consideration as one of many factors), this analysis has shown that they do not work as a merit-based pay mechanism. The slight negative correlation found here (though non-significant) can be thought to reflect confounding: senior faculty have higher salaries because of rank/experience but might receive lower ratings because they teach more challenging courses or have less time for individual attention to students.
+
+Future Directions: While this analysis successfully confirmed the expected lack of relationship, future research could more directly examine the factors that do explain salary variation-e.g., years since PhD, academic rank, discipline, grant funding-to quantify their relative importance in the compensation structure.
+
