@@ -33,6 +33,14 @@
       h1, h2 {
         margin-bottom: 10px;
       }
+
+      .load-error {
+        background: #fee;
+        border: 1px solid #c00;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
     </style>
   </head>
 
@@ -92,83 +100,115 @@
       </div>
   
 
-    <!-- Script Section -->
+    <!-- Embedded data (from BSU_prof_salary.csv) so the page works when opened directly without a server -->
     <script type="text/javascript">
-        
-        // Embedded data to avoid CORS issues
-        var profData = [{"Employees": "Kathleen Ferris", "Base Pay": 109385.83, "dept": "marketing ", "rating": 2.6}, {"Employees": "Uma Shama", "Base Pay": 106233.94, "dept": "math ", "rating": 4.3}, {"Employees": "Steven Greenberg", "Base Pay": 120793.52, "dept": "education", "rating": 4.3}, {"Employees": "Patricia Bancroft", "Base Pay": 109446.72, "dept": "accounting ", "rating": 3.4}, {"Employees": "Xiangrong Liu", "Base Pay": 111842.88, "dept": "management", "rating": 3.6}, {"Employees": "Diana Fox", "Base Pay": 97279.12, "dept": "anthropology ", "rating": 2.8}, {"Employees": "Walter Carroll", "Base Pay": 108833.04, "dept": "social science ", "rating": 2.9}, {"Employees": "Martin Grossman", "Base Pay": 108555.61, "dept": "business", "rating": 4.4}, {"Employees": "Chien Yu", "Base Pay": 106674.74, "dept": "physical education ", "rating": 1.7}, {"Employees": "Jo Hoffman", "Base Pay": 102163.2, "dept": "education", "rating": 3.3}, {"Employees": "Michele Wakin", "Base Pay": 100811.52, "dept": "sociology", "rating": 3.5}, {"Employees": "Carleton Donchess", "Base Pay": 109711.0, "dept": "accounting ", "rating": 3.9}, {"Employees": "Vignon Oussa", "Base Pay": 75750.58, "dept": "math ", "rating": 3.5}, {"Employees": "Abdul Sattar", "Base Pay": 106749.92, "dept": "comp sci", "rating": 2.8}, {"Employees": "Shannon Donovan", "Base Pay": 106355.54, "dept": "accounting ", "rating": 2.3}, {"Employees": "Jabbar Al-Obaidi", "Base Pay": 98202.68, "dept": "communication", "rating": 3.0}, {"Employees": "Madhusudana Rao", "Base Pay": 101110.78, "dept": "geography", "rating": 3.1}, {"Employees": "Stephen Nelson", "Base Pay": 99287.54, "dept": "math ", "rating": 3.3}, {"Employees": "Mia Ortiz", "Base Pay": 76710.6, "dept": "criminal justice", "rating": 3.6}, {"Employees": "Aeon Skoble", "Base Pay": 95216.78, "dept": "Philsophy", "rating": 3.1}, {"Employees": "Merideth Krevosky", "Base Pay": 87552.18, "dept": "biology", "rating": 4.9}, {"Employees": "Ann Brunjes", "Base Pay": 94103.5, "dept": "english ", "rating": 4.6}, {"Employees": "Tong-Ching Tom Wu", "Base Pay": 96373.2, "dept": "physical education ", "rating": 3.0}, {"Employees": "Jeffrey Williams", "Base Pay": 101941.4, "dept": "science ", "rating": 3.3}, {"Employees": "Marian Extejt", "Base Pay": 100997.92, "dept": "management", "rating": 3.2}, {"Employees": "Karen Richardson", "Base Pay": 89535.8, "dept": "physical education ", "rating": 2.0}, {"Employees": "John Santore", "Base Pay": 100458.18, "dept": "comp sci", "rating": 3.9}, {"Employees": "Andrew Holman", "Base Pay": 96518.31, "dept": "history", "rating": 3.8}, {"Employees": "Michael Jones", "Base Pay": 92351.4, "dept": "economics ", "rating": 3.9}, {"Employees": "Kim MacInnis", "Base Pay": 100616.97, "dept": "social science ", "rating": 3.4}, {"Employees": "Thomas Kling", "Base Pay": 86405.92, "dept": "physics", "rating": 4.5}, {"Employees": "Robert Grantham", "Base Pay": 79457.65, "dept": "criminal justice", "rating": 2.8}, {"Employees": "Ward Heilman", "Base Pay": 96907.02, "dept": "math ", "rating": 4.5}, {"Employees": "Beverly Lovett", "Base Pay": 93908.54, "dept": "Social Work ", "rating": 3.6}, {"Employees": "Donald Padgett", "Base Pay": 93986.1, "dept": "biology", "rating": 3.5}, {"Employees": "Robert Haslam", "Base Pay": 98334.82, "dept": "physical education ", "rating": 3.0}, {"Employees": "Michael Carson", "Base Pay": 97305.02, "dept": "science ", "rating": 3.0}, {"Employees": "Margaret Lowe", "Base Pay": 93390.49, "dept": "history", "rating": 3.2}, {"Employees": "Salil Sachdev", "Base Pay": 93995.77, "dept": "music ", "rating": 4.0}, {"Employees": "Leonid Heretz", "Base Pay": 97555.5, "dept": "history ", "rating": 4.3}, {"Employees": "Teresa King", "Base Pay": 97528.87, "dept": "psychology ", "rating": 3.7}, {"Employees": "Lydia Burak", "Base Pay": 97489.2, "dept": "physical education ", "rating": 2.6}, {"Employees": "Michael Krol", "Base Pay": 89948.08, "dept": "science ", "rating": 4.4}, {"Employees": "Jennifer Hartsfield", "Base Pay": 76710.6, "dept": "criminal justice", "rating": 2.9}, {"Employees": "Joyce Rain Anderson", "Base Pay": 82798.2, "dept": "english ", "rating": 4.4}, {"Employees": "Peter Saccocia", "Base Pay": 96975.8, "dept": "science ", "rating": 4.0}, {"Employees": "Julia Stakhnevich", "Base Pay": 87644.54, "dept": "languages", "rating": 3.9}, {"Employees": "James Hayes-Bohanan", "Base Pay": 96305.5, "dept": "geography", "rating": 4.3}, {"Employees": "Deborah Sheehy", "Base Pay": 96470.98, "dept": "physical education ", "rating": 2.3}, {"Employees": "Sarah Thomas", "Base Pay": 70419.69, "dept": "education", "rating": 3.3}, {"Employees": "Darcy Boellstorff", "Base Pay": 88448.38, "dept": "geography", "rating": 4.4}, {"Employees": "Richard Wright", "Base Pay": 96277.31, "dept": "sociology", "rating": 2.8}, {"Employees": "Erin O'Connor", "Base Pay": 88322.2, "dept": "english ", "rating": 3.8}, {"Employees": "Leora Lev", "Base Pay": 94294.5, "dept": "languages", "rating": 4.3}, {"Employees": "Stephen Waratuke", "Base Pay": 85463.9, "dept": "chemistry ", "rating": 4.2}, {"Employees": "Edward Deveney", "Base Pay": 95086.82, "dept": "physics", "rating": 4.5}, {"Employees": "Sandra Neargarder", "Base Pay": 93606.92, "dept": "psychology ", "rating": 4.3}, {"Employees": "George Serra", "Base Pay": 94340.32, "dept": "political science ", "rating": 2.4}, {"Employees": "Elizabeth Spievak", "Base Pay": 88236.7, "dept": "psychology ", "rating": 2.6}, {"Employees": "Deborah Nemko", "Base Pay": 86390.34, "dept": "music ", "rating": 3.8}, {"Employees": "Robert Lorenson", "Base Pay": 93761.0, "dept": "fine arts ", "rating": 3.3}, {"Employees": "Bennie Agbarha", "Base Pay": 83513.18, "dept": "education", "rating": 2.0}, {"Employees": "Mark Crowley", "Base Pay": 92552.22, "dept": "accounting ", "rating": 4.6}, {"Employees": "Ellen Ingmanson", "Base Pay": 87848.4, "dept": "anthropology ", "rating": 2.6}, {"Employees": "David Almeida", "Base Pay": 91519.9, "dept": "education", "rating": 3.4}, {"Employees": "Ellyn Robinson", "Base Pay": 91412.42, "dept": "health science ", "rating": 4.5}, {"Employees": "Anne Hird", "Base Pay": 88431.5, "dept": "english ", "rating": 2.8}, {"Employees": "Steven Haefner", "Base Pay": 88369.5, "dept": "chemistry ", "rating": 3.9}, {"Employees": "Keith Lewinstein", "Base Pay": 91154.4, "dept": "history", "rating": 2.9}, {"Employees": "Jeffrey Nicholas", "Base Pay": 86330.68, "dept": "psychology ", "rating": 4.6}, {"Employees": "Christopher Bloch", "Base Pay": 87265.6, "dept": "biology", "rating": 4.0}, {"Employees": "Arthur Lizie", "Base Pay": 84685.62, "dept": "communication", "rating": 2.3}, {"Employees": "Susan Eliason", "Base Pay": 78245.98, "dept": "education", "rating": 3.3}, {"Employees": "Mahmoud El-Hashash", "Base Pay": 89136.22, "dept": "math ", "rating": 3.4}, {"Employees": "Maura Rosenthal", "Base Pay": 89678.1, "dept": "physical education ", "rating": 4.5}, {"Employees": "Beatrice St.Laurent", "Base Pay": 88064.42, "dept": "art history ", "rating": 1.9}, {"Employees": "David O'Malley", "Base Pay": 81063.3, "dept": "communication", "rating": 5.0}, {"Employees": "Robert Hellstrom", "Base Pay": 87610.7, "dept": "geography", "rating": 4.5}, {"Employees": "Jodi Cohen", "Base Pay": 88095.4, "dept": "sociology", "rating": 4.3}, {"Employees": "John Kucich", "Base Pay": 88269.04, "dept": "english ", "rating": 3.9}, {"Employees": "Catherine Womack", "Base Pay": 88265.82, "dept": "Philsophy", "rating": 3.3}, {"Employees": "Jing Tan", "Base Pay": 81327.6, "dept": "Social Work ", "rating": 3.7}, {"Employees": "Gregory Chaplin", "Base Pay": 88175.0, "dept": "english ", "rating": 3.8}, {"Employees": "Fernanda Ferreira", "Base Pay": 86785.72, "dept": "languages", "rating": 4.2}, {"Employees": "Robert Cicerone", "Base Pay": 86943.42, "dept": "science ", "rating": 4.1}, {"Employees": "Wing-Kai To", "Base Pay": 85974.82, "dept": "history ", "rating": 3.9}, {"Employees": "Shannon Lockard", "Base Pay": 77828.68, "dept": "math ", "rating": 3.8}, {"Employees": "Melissa Freeburg", "Base Pay": 80138.2, "dept": "education", "rating": 5.0}, {"Employees": "Mary Dondero", "Base Pay": 86932.05, "dept": "graphic art ", "rating": 4.1}, {"Employees": "Ryan LaBrozzi", "Base Pay": 78121.54, "dept": "languages", "rating": 3.8}, {"Employees": "Benjamin Carson", "Base Pay": 85919.03, "dept": "english ", "rating": 4.6}, {"Employees": "Laura Gross", "Base Pay": 83486.0, "dept": "math ", "rating": 2.9}, {"Employees": "Sarah McQuarrie", "Base Pay": 78567.87, "dept": "music ", "rating": 3.6}, {"Employees": "Suanne Maurer", "Base Pay": 85325.4, "dept": "health science ", "rating": 4.2}, {"Employees": "Seikyung Jung", "Base Pay": 85108.6, "dept": "comp sci", "rating": 3.0}, {"Employees": "Boriana Marintcheva", "Base Pay": 79563.65, "dept": "biology", "rating": 3.5}, {"Employees": "Kimberly Davis", "Base Pay": 78364.74, "dept": "english ", "rating": 4.1}, {"Employees": "Kimberly Fox", "Base Pay": 69493.85, "dept": "sociology", "rating": 2.6}, {"Employees": "Kathryn Evans", "Base Pay": 82746.35, "dept": "english ", "rating": 4.1}, {"Employees": "Thilina Surasinghe", "Base Pay": 69596.82, "dept": "biology", "rating": 3.2}, {"Employees": "Jefferson Kemper", "Base Pay": 83772.34, "dept": "political science ", "rating": 3.1}, {"Employees": "Heidi Bean", "Base Pay": 76876.59, "dept": "english ", "rating": 3.6}, {"Employees": "Kathleen Vejvoda", "Base Pay": 82946.77, "dept": "english ", "rating": 4.0}, {"Employees": "Robert Sylvester", "Base Pay": 83091.68, "dept": "education", "rating": 3.3}, {"Employees": "Robert Saunders", "Base Pay": 82960.72, "dept": "geography", "rating": 4.5}, {"Employees": "Donald Running", "Base Pay": 79041.34, "dept": "music ", "rating": 3.1}, {"Employees": "Michelle Mamberg", "Base Pay": 79563.64, "dept": "psychology ", "rating": 3.4}, {"Employees": "Robert Colandreo", "Base Pay": 82472.72, "dept": "health science ", "rating": 3.5}, {"Employees": "Jordon Barkalow", "Base Pay": 75186.23, "dept": "political science ", "rating": 3.6}, {"Employees": "Fang Deng", "Base Pay": 81965.93, "dept": "sociology", "rating": 1.8}, {"Employees": "James Leone", "Base Pay": 81368.19, "dept": "health science ", "rating": 4.2}, {"Employees": "Brian Frederick", "Base Pay": 77644.09, "dept": "political science ", "rating": 3.6}, {"Employees": "James Crowley", "Base Pay": 81112.72, "dept": "english ", "rating": 4.8}, {"Employees": "John Mulrooney", "Base Pay": 78823.78, "dept": "english ", "rating": 4.0}, {"Employees": "Irina Seceleanu", "Base Pay": 76876.61, "dept": "math ", "rating": 4.2}, {"Employees": "Minae Savas", "Base Pay": 78735.8, "dept": "languages", "rating": 4.0}, {"Employees": "Joseph Seggio", "Base Pay": 77480.29, "dept": "biology", "rating": 4.9}, {"Employees": "Ellen Scheible", "Base Pay": 79292.7, "dept": "english ", "rating": 4.8}, {"Employees": "Thomasena Shaw", "Base Pay": 75543.42, "dept": "communication", "rating": 4.1}, {"Employees": "Yongjun Shin", "Base Pay": 74372.2, "dept": "communication", "rating": 4.6}, {"Employees": "Matthew Bell", "Base Pay": 78364.74, "dept": "english ", "rating": 3.7}, {"Employees": "Matthew Dasti", "Base Pay": 78169.62, "dept": "Philsophy", "rating": 3.7}, {"Employees": "Heather Marella", "Base Pay": 75539.23, "dept": "biology", "rating": 4.6}, {"Employees": "Allyson Ferrante", "Base Pay": 71026.66, "dept": "english ", "rating": 3.6}, {"Employees": "Sarah Wiggins", "Base Pay": 78178.17, "dept": "history", "rating": 4.2}, {"Employees": "Jason Edwards", "Base Pay": 78178.16, "dept": "communication", "rating": 3.9}, {"Employees": "Leigh Craven", "Base Pay": 78059.02, "dept": "fine arts ", "rating": 2.9}, {"Employees": "Rebecca Metcalf", "Base Pay": 77535.58, "dept": "math ", "rating": 4.8}, {"Employees": "Kevin Donnelly", "Base Pay": 73514.42, "dept": "political science ", "rating": 4.7}, {"Employees": "Jessica Birthisel", "Base Pay": 74520.94, "dept": "communication", "rating": 4.8}, {"Employees": "James Pearson", "Base Pay": 69373.38, "dept": "Philsophy", "rating": 3.8}, {"Employees": "Jonathan Roling", "Base Pay": 77280.92, "dept": "biology", "rating": 3.3}, {"Employees": "Bjorn Ingvoldstad", "Base Pay": 76782.22, "dept": "communication", "rating": 3.7}, {"Employees": "Kevin Rion", "Base Pay": 76710.6, "dept": "math ", "rating": 3.2}, {"Employees": "Melissa Singer", "Base Pay": 76917.32, "dept": "psychology ", "rating": 4.3}, {"Employees": "Margaret Black", "Base Pay": 71077.98, "dept": "anthropology ", "rating": 2.3}, {"Employees": "Thomas Nester", "Base Pay": 76710.6, "dept": "history", "rating": 4.2}, {"Employees": "Tina Jameson", "Base Pay": 76680.96, "dept": "psychology ", "rating": 3.6}, {"Employees": "William Devlin", "Base Pay": 76600.1, "dept": "Philsophy", "rating": 4.7}, {"Employees": "Jeffrey Webb", "Base Pay": 76456.16, "dept": "accounting ", "rating": 4.0}, {"Employees": "Gal Kober", "Base Pay": 74602.6, "dept": "Philsophy", "rating": 3.3}, {"Employees": "Laura Ramsey", "Base Pay": 75543.36, "dept": "psychology ", "rating": 4.5}, {"Employees": "Bruce Dalton Machart", "Base Pay": 74955.93, "dept": "english ", "rating": 4.0}, {"Employees": "Norma Anderson", "Base Pay": 74602.6, "dept": "sociology", "rating": 3.3}, {"Employees": "John Sexton", "Base Pay": 73787.71, "dept": "english ", "rating": 3.7}, {"Employees": "Thayaparan Paramanathan", "Base Pay": 71119.1, "dept": "physics", "rating": 4.5}, {"Employees": "Caroline Stanley", "Base Pay": 69920.01, "dept": "psychology ", "rating": 4.7}, {"Employees": "Lisa Litterio", "Base Pay": 68802.62, "dept": "english ", "rating": 4.6}, {"Employees": "Daniel Chase", "Base Pay": 68802.62, "dept": "physical education ", "rating": 5.0}, {"Employees": "Enping Li", "Base Pay": 71253.05, "dept": "comp sci", "rating": 4.3}, {"Employees": "Paul Rubinson", "Base Pay": 71411.3, "dept": "history", "rating": 3.9}, {"Employees": "Janessa Carvalho", "Base Pay": 68802.62, "dept": "psychology ", "rating": 3.0}, {"Employees": "Jacqueline Anderson", "Base Pay": 68802.62, "dept": "math ", "rating": 4.2}, {"Employees": "John Calicchia", "Base Pay": 27594.06, "dept": "psychology ", "rating": 4.5}, {"Employees": "Magaly Ponce", "Base Pay": 46904.8, "dept": "fine arts ", "rating": 3.0}, {"Employees": "Ivana George", "Base Pay": 41575.57, "dept": "fine arts ", "rating": 2.7}, {"Employees": "Jonghyun Lee", "Base Pay": 40069.77, "dept": "Social Work ", "rating": 4.3}, {"Employees": "Kevin Kalish", "Base Pay": 38166.75, "dept": "english ", "rating": 3.8}, {"Employees": "Polina Sabinin", "Base Pay": 36570.68, "dept": "math ", "rating": 2.8}, {"Employees": "Edward Brush", "Base Pay": 25525.66, "dept": "science ", "rating": 4.4}, {"Employees": "Nesa Wasarhaley", "Base Pay": 3565.92, "dept": "psychology ", "rating": 3.9}, {"Employees": "Heather Pacheco-Guffrey", "Base Pay": 3565.91, "dept": "education", "rating": 2.9}, {"Employees": "Emily Field", "Base Pay": 3565.91, "dept": "english ", "rating": 3.4}, {"Employees": "Peter Sietins", "Base Pay": 4756.51, "dept": "business", "rating": 4.4}, {"Employees": "Louise Badiane", "Base Pay": 4220.97, "dept": "anthropology ", "rating": 2.3}, {"Employees": "Jeanne Ingle", "Base Pay": 3444.87, "dept": "education", "rating": 4.1}, {"Employees": "Alice Cheng", "Base Pay": 3573.19, "dept": "psychology ", "rating": 3.6}, {"Employees": "Sean McPherson", "Base Pay": 3610.59, "dept": "english ", "rating": 3.2}, {"Employees": "Simone Poliandri", "Base Pay": 3600.86, "dept": "anthropology ", "rating": 3.6}, {"Employees": "Jamie Huff", "Base Pay": 3565.91, "dept": "criminal justice", "rating": 4.9}, {"Employees": "Melissa Brandon", "Base Pay": 3565.91, "dept": "psychology ", "rating": 4.0}, {"Employees": "Melinda Tarsi-Goldfien", "Base Pay": 3565.91, "dept": "political science ", "rating": 4.7}, {"Employees": "Melissa Keh", "Base Pay": 3536.55, "dept": "education", "rating": 2.9}, {"Employees": "Alba Aragon", "Base Pay": 3520.66, "dept": "languages", "rating": 3.2}, {"Employees": "John Pike", "Base Pay": 3444.87, "dept": "math ", "rating": 3.9}];
-        
-        var scatterSalaryRatingSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-        description: 'Scatter plot of salary vs student rating',
-        data: {"values": profData},
-        mark: {
-          type: "line",point: true,color: "steelblue"},
-        encoding: {
-          x: {field: 'rating',type: 'quantitative',title: 'Prof Rating'},
-          y: {field: 'Base Pay', type: 'quantitative', title: 'Prof Salary'},
-          tooltip: [
-            {field: "Employees", type: "nominal"},
-            {field: "Base Pay", type: "quantitative"},
-            {field: "rating", type: "quantitative"},
-            {field: "dept", type: "nominal"}
-          ]
+      var embeddedCsv = "Base Pay,dept,rating\n109385.83,marketing ,2.6\n106233.94,math ,4.3\n120793.52,education,4.3\n109446.72,accounting ,3.4\n111842.88,management,3.6\n97279.12,anthropology ,2.8\n108833.04,social science ,2.9\n108555.61,business,4.4\n106674.74,physical education ,1.7\n102163.2,education,3.3\n100811.52,sociology,3.5\n109711.0,accounting ,3.9\n75750.58,math ,3.5\n106749.92,comp sci,2.8\n106355.54,accounting ,2.3\n98202.68,communication,3.0\n101110.78,geography,3.1\n99287.54,math ,3.3\n76710.6,criminal justice,3.6\n95216.78,Philsophy,3.1\n87552.18,biology,4.9\n94103.5,english ,4.6\n96373.2,physical education ,3.0\n101941.4,science ,3.3\n100997.92,management,3.2\n89535.8,physical education ,2.0\n100458.18,comp sci,3.9\n96518.31,history,3.8\n92351.4,economics ,3.9\n100616.97,social science ,3.4\n86405.92,physics,4.5\n79457.65,criminal justice,2.8\n96907.02,math ,4.5\n93908.54,Social Work ,3.6\n93986.1,biology,3.5\n98334.82,physical education ,3.0\n97305.02,science ,3.0\n93390.49,history,3.2\n93995.77,music ,4.0\n97555.5,history ,4.3\n97528.87,psychology ,3.7\n97489.2,physical education ,2.6\n89948.08,science ,4.4\n76710.6,criminal justice,2.9\n82798.2,english ,4.4\n96975.8,science ,4.0\n87644.54,languages,3.9\n96305.5,geography,4.3\n96470.98,physical education ,2.3\n70419.69,education,3.3\n88448.38,geography,4.4\n96277.31,sociology,2.8\n88322.2,english ,3.8\n94294.5,languages,4.3\n85463.9,chemistry ,4.2\n95086.82,physics,4.5\n93606.92,psychology ,4.3\n94340.32,political science ,2.4\n88236.7,psychology ,2.6\n86390.34,music ,3.8\n93761.0,fine arts ,3.3\n83513.18,education,2.0\n92552.22,accounting ,4.6\n87848.4,anthropology ,2.6\n91519.9,education,3.4\n91412.42,health science ,4.5\n88431.5,english ,2.8\n88369.5,chemistry ,3.9\n91154.4,history,2.9\n86330.68,psychology ,4.6\n87265.6,biology,4.0\n84685.62,communication,2.3\n78245.98,education,3.3\n89136.22,math ,3.4\n89678.1,physical education ,4.5\n88064.42,art history ,1.9\n81063.3,communication,5.0\n87610.7,geography,4.5\n88095.4,sociology,4.3\n88269.04,english ,3.9\n88265.82,Philsophy,3.3\n81327.6,Social Work ,3.7\n88175.0,english ,3.8\n86785.72,languages,4.2\n86943.42,science ,4.1\n85974.82,history ,3.9\n77828.68,math ,3.8\n80138.2,education,5.0\n86932.05,graphic art ,4.1\n78121.54,languages,3.8\n85919.03,english ,4.6\n83486.0,math ,2.9\n78567.87,music ,3.6\n85325.4,health science ,4.2\n85108.6,comp sci,3.0\n79563.65,biology,3.5\n78364.74,english ,4.1\n69493.85,sociology,2.6\n82746.35,english ,4.1\n69596.82,biology,3.2\n83772.34,political science ,3.1\n76876.59,english ,3.6\n82946.77,english ,4.0\n83091.68,education,3.3\n82960.72,geography,4.5\n79041.34,music ,3.1\n79563.64,psychology ,3.4\n82472.72,health science ,3.5\n75186.23,political science ,3.6\n81965.93,sociology,1.8\n81368.19,health science ,4.2\n77644.09,political science ,3.6\n81112.72,english ,4.8\n78823.78,english ,4.0\n76876.61,math ,4.2\n78735.8,languages,4.0\n77480.29,biology,4.9\n79292.7,english ,4.8\n75543.42,communication,4.1\n74372.2,communication,4.6\n78364.74,english ,3.7\n78169.62,Philsophy,3.7\n75539.23,biology,4.6\n71026.66,english ,3.6\n78178.17,history,4.2\n78178.16,communication,3.9\n78059.02,fine arts ,2.9\n77535.58,math ,4.8\n73514.42,political science ,4.7\n74520.94,communication,4.8\n69373.38,Philsophy,3.8\n77280.92,biology,3.3\n76782.22,communication,3.7\n76710.6,math ,3.2\n76917.32,psychology ,4.3\n71077.98,anthropology ,2.3\n76710.6,history,4.2\n76680.96,psychology ,3.6\n76600.1,Philsophy,4.7\n76456.16,accounting ,4.0\n74602.6,Philsophy,3.3\n75543.36,psychology ,4.5\n74955.93,english ,4.0\n74602.6,sociology,3.3\n73787.71,english ,3.7\n71119.1,physics,4.5\n69920.01,psychology ,4.7\n68802.62,english ,4.6\n68802.62,physical education ,5.0\n71253.05,comp sci,4.3\n71411.3,history,3.9\n68802.62,psychology ,3.0\n68802.62,math ,4.2\n27594.06,psychology ,4.5\n46904.8,fine arts ,3.0\n41575.57,fine arts ,2.7\n40069.77,Social Work ,4.3\n38166.75,english ,3.8\n36570.68,math ,2.8\n25525.66,science ,4.4\n3565.92,psychology ,3.9\n3565.91,education,2.9\n3565.91,english ,3.4\n4756.51,business,4.4\n4220.97,anthropology ,2.3\n3444.87,education,4.1\n3573.19,psychology ,3.6\n3610.59,english ,3.2\n3600.86,anthropology ,3.6\n3565.91,criminal justice,4.9\n3565.91,psychology ,4.0\n3565.91,political science ,4.7\n3536.55,education,2.9\n3520.66,languages,3.2\n3444.87,math ,3.9";
+    </script>
+    <script type="text/javascript">
+        function parseCSV(text) {
+          var lines = text.trim().split(/\r?\n/);
+          if (lines.length < 2) return [];
+          var headers = lines[0].split(',').map(function(h) { return h.trim(); });
+          var rows = [];
+          for (var i = 1; i < lines.length; i++) {
+            var vals = lines[i].split(',');
+            var row = {};
+            for (var j = 0; j < headers.length; j++) {
+              var h = headers[j];
+              var v = vals[j] != null ? vals[j].trim() : '';
+              if (h === 'Base Pay' || h === 'rating') row[h] = parseFloat(v) || 0;
+              else row[h] = v;
+            }
+            rows.push(row);
+          }
+          return rows;
         }
-      };
 
-      var salaryByDepartmentSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-        description: 'Salary distribution by department',
-        data: {"values": profData},
-        mark: {type: "boxplot",extent: "min-max",},
-        encoding: {
-          x: {field: 'dept',type: 'ordinal',title: 'Department'},
-          color: {field: "dept", type: "ordinal"}, 
-          y: {field: 'Base Pay',type: 'quantitative',title: 'Prof Salary'},
+        function buildSpecs(profData) {
+          var dataRef = { values: profData };
+          return {
+            scatter: {
+              $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+              description: 'Scatter plot of salary vs student rating',
+              data: dataRef,
+              mark: { type: "line", point: true, color: "steelblue" },
+              encoding: {
+                x: { field: 'rating', type: 'quantitative', title: 'Prof Rating' },
+                y: { field: 'Base Pay', type: 'quantitative', title: 'Prof Salary' },
+                tooltip: [
+                  { field: "Base Pay", type: "quantitative" },
+                  { field: "rating", type: "quantitative" },
+                  { field: "dept", type: "nominal" }
+                ]
+              }
+            },
+            salaryByDept: {
+              $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+              description: 'Salary distribution by department',
+              data: dataRef,
+              mark: { type: "boxplot", extent: "min-max" },
+              encoding: {
+                x: { field: 'dept', type: 'ordinal', title: 'Department' },
+                color: { field: "dept", type: "ordinal" },
+                y: { field: 'Base Pay', type: 'quantitative', title: 'Prof Salary' },
+              }
+            },
+            avgRatingByDept: {
+              $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+              description: 'Average student rating by department',
+              data: dataRef,
+              mark: { type: "bar" },
+              encoding: {
+                x: { field: 'dept', type: 'ordinal', sort: "-y", title: 'Department' },
+                y: { field: 'rating', type: 'quantitative', aggregate: 'mean', title: 'Average Prof Rating' },
+              }
+            },
+            ratingDist: {
+              $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+              description: 'Distribution of student ratings',
+              data: dataRef,
+              mark: { type: "bar" },
+              encoding: {
+                x: { bin: "true", field: 'rating', title: 'Prof Rating' },
+                y: { aggregate: "count" }
+              }
+            },
+            salaryDist: {
+              $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+              description: 'Distribution of professor salaries',
+              data: dataRef,
+              mark: { type: "bar" },
+              encoding: {
+                x: { bin: "true", field: 'Base Pay', title: 'Prof Salary' },
+                y: { aggregate: "count" }
+              }
+            }
+          };
         }
-      };
 
-      var avgRatingByDepartmentSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-        description: 'Average student rating by department',
-        data: {"values": profData},
-        mark: {type: "bar"},
-        encoding: {
-          x: {field: 'dept',type: 'ordinal', sort: "-y",title: 'Department'},
-          y: {field: 'rating',type: 'quantitative', aggregate: 'mean', title: 'Average Prof Rating'},
+        function showLoadError(msg) {
+          var el = document.createElement('div');
+          el.className = 'load-error full-width';
+          el.innerHTML = '<strong>Data could not be loaded.</strong> ' + msg;
+          document.querySelector('.dashboard').insertBefore(el, document.querySelector('.dashboard').firstChild);
         }
-      };
 
-      var ratingDistributionSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-        description: 'Distribution of student ratings',
-        data: {"values": profData},
-        mark: {type: "bar"},
-        encoding: {
-          x: {bin: "true",field: 'rating',title: 'Prof Rating'},
-          y: {aggregate: "count"}
+        function renderCharts(profData) {
+          var specs = buildSpecs(profData);
+          vegaEmbed('#scatter-salary-rating', specs.scatter);
+          vegaEmbed('#salary-by-department', specs.salaryByDept);
+          vegaEmbed('#avg-rating-by-department', specs.avgRatingByDept);
+          vegaEmbed('#rating-distribution', specs.ratingDist);
+          vegaEmbed('#salary-distribution', specs.salaryDist);
         }
-      };
 
-      var salaryDistributionSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-        description: 'Distribution of professor salaries',
-        data: {"values": profData},
-        mark: {type: "bar"},
-        encoding: {
-          x: {bin: "true",field: 'Base Pay',title: 'Prof Salary'},
-          y: {aggregate: "count"}
+        // Use embedded data so the dashboard works when opened directly (no server needed)
+        var profData = parseCSV(embeddedCsv);
+        if (profData.length) {
+          renderCharts(profData);
+        } else {
+          showLoadError('Embedded data is missing or invalid.');
         }
-      };
-
-
-
-      vegaEmbed('#scatter-salary-rating', scatterSalaryRatingSpec);
-      vegaEmbed('#salary-by-department', salaryByDepartmentSpec);
-      vegaEmbed('#avg-rating-by-department', avgRatingByDepartmentSpec);
-      vegaEmbed('#rating-distribution', ratingDistributionSpec);
-      vegaEmbed('#salary-distribution', salaryDistributionSpec);
-
     </script>
 
   </body>
